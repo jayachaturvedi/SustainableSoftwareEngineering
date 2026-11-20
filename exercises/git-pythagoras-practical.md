@@ -121,12 +121,17 @@ Create a file named `pythagoras.py` and add this initial program:
 ```python
 import math
 
-side_a = float(input("Enter the first side: "))
-side_b = float(input("Enter the second side: "))
+var1 = int(input("Enter first number: "))
+var2 = int(input("Enter second number: "))
 
-hypotenuse = math.sqrt(side_a ** 2 + side_b ** 2)
+var3 = var1 * var1
+var4 = var2 * var2
 
-print("Hypotenuse:", hypotenuse)
+var5 = var3 + var4
+
+var6 = math.sqrt(var5)
+
+print(var6)
 ```
 
 Save the file and run it in the terminal:
