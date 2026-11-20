@@ -1,420 +1,281 @@
 # Git and GitHub Practical: Pythagoras Calculator
 
-## Aim
+## Introduction
 
-In this practical, you will use Git to track changes to a small Python program and GitHub to store your repository online.
+In this practical, you will use Git and GitHub to manage changes to a simple Python program that calculates the hypotenuse of a right-angled triangle.
 
 You will learn how to:
 
 - Create a local Git repository.
-- Stage and commit changes.
-- Connect your local repository to a GitHub repository.
-- Push commits to GitHub.
-- Create a branch, make a change and merge it back into `main`.
-
-The key idea is that **Git and GitHub are related, but they are not the same thing**:
-
-- **Git** tracks versions of your files and their history.
-- **GitHub** hosts Git repositories online so you can access and share them.
-
-**Important:** A Git commit is saved locally. It does not appear on GitHub until you push it.
+- Track changes to your code.
+- Make commits.
+- Upload your code to GitHub.
+- Create and work with branches.
+- Merge changes back into the main branch.
+- Understand how version control supports sustainable research software.
 
 ---
 
-## 1. Before you start: install the software
+# Part 1: Installing the software
 
-You need Python 3 and Git. Visual Studio Code (VS Code) is recommended as an editor, but it is not essential.
+Before starting, you need Python and Git. We also recommend using Visual Studio Code (VS Code) as your code editor.
 
-### Install Python 3
+## 1.1 Install Python
 
-Download Python from the official website:
+Download Python from:
 
 https://www.python.org/downloads/
 
-Choose the version for your operating system and follow the installation instructions.
+Follow the installation instructions for your operating system.
 
-**Windows note:** During installation, tick **Add Python to PATH** if that option is shown.
+**Windows users:** During installation, make sure you select the option:
 
-Open a new terminal and check that Python is installed:
+`Add Python to PATH`
+
+To check that Python is installed, open a terminal and enter:
 
 ```bash
 python --version
 ```
 
-If that command is not recognised, try:
+On some systems, you may need to use:
 
 ```bash
 python3 --version
 ```
 
-You should see a Python 3 version number.
+You should see the installed Python version.
 
-### Install Git
+## 1.2 Install Git
 
-Download Git from the official website:
+Download Git from:
 
 https://git-scm.com/downloads
 
-Choose your operating system and follow the installation instructions. The default installation options are usually suitable.
+Follow the installation instructions for your operating system.
 
-Open a new terminal and check that Git is installed:
+To check that Git is installed, open a terminal and enter:
 
 ```bash
 git --version
 ```
 
-You should see a Git version number.
+You should see the installed Git version.
 
-### Install Visual Studio Code (recommended)
+## 1.3 Install Visual Studio Code
 
-Download VS Code:
+Download VS Code from:
 
 https://code.visualstudio.com/
 
-After installing it:
+Install it and open the application.
+
+We also recommend installing the Microsoft Python extension:
 
 1. Open VS Code.
-2. Open the folder where you will keep your practical work (**File → Open Folder**).
-3. Open the Extensions view and install the **Python** extension published by Microsoft.
-4. Open a Python file. If prompted, select the Python 3 interpreter installed on your computer.
-5. Open the integrated terminal using **Terminal → New Terminal**.
+2. Select Extensions from the sidebar.
+3. Search for `Python`.
+4. Install the extension published by Microsoft.
 
-You can run your program in the VS Code terminal. For example:
+This provides Python syntax highlighting, code assistance and debugging support.
+
+## 1.4 Configure Git
+
+Before making your first commit, configure Git with your name and email address.
+
+Enter the following commands, replacing the example details with your own:
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+```
+
+To check your configuration:
+
+```bash
+git config --global --list
+```
+
+You only need to configure this once on your computer.
+
+## 1.5 Using GitHub Codespaces (alternative)
+
+If you do not want to install Python, Git and VS Code locally, you can use GitHub Codespaces.
+
+Codespaces provides a cloud-based development environment that runs in your browser.
+
+1. Open your GitHub repository.
+2. Select the green **Code** button.
+3. Select the **Codespaces** tab.
+4. Create a new Codespace.
+5. Use the built-in terminal and editor to work with your code.
+
+The practical instructions below are the same whether you use a local installation or Codespaces.
+
+**Note:** This practical uses only Python's standard library. You do not need to install additional Python packages.
+
+---
+
+# Part 2: Create your Pythagoras project
+
+## 2.1 Create a project folder
+
+Create a folder called:
+
+`pythagoras`
+
+Open this folder in VS Code.
+
+Open the integrated terminal:
+
+- Select **Terminal** from the menu.
+- Select **New Terminal**.
+
+Make sure the terminal is operating inside your `pythagoras` folder.
+
+## 2.2 Create the Python file
+
+Create a new file called:
+
+`pythagoras.py`
+
+Add the following code:
+
+```python
+import math
+
+side_a = float(input("Enter first side: "))
+side_b = float(input("Enter second side: "))
+
+hypotenuse = math.sqrt(side_a ** 2 + side_b ** 2)
+
+print("Hypotenuse:", hypotenuse)
+```
+
+Save the file.
+
+## 2.3 Run the program
+
+In the terminal, enter:
 
 ```bash
 python pythagoras.py
 ```
 
-On some systems, use:
+If your system uses `python3`, enter:
 
 ```bash
 python3 pythagoras.py
 ```
 
-Use the terminal for programs that ask for keyboard input with `input()`. The VS Code **Output** panel is not an interactive terminal.
+Enter two side lengths when prompted.
 
-### Do you need to install extra Python packages?
+For example:
 
-No. The Pythagoras example uses Python's built-in `math` module. It is included with Python, so you do not need to install it separately.
-
-### Alternative: GitHub Codespaces
-
-If you are using GitHub Codespaces, your development environment runs in the cloud. You normally do not need to install Python, Git or VS Code on your own computer to complete the practical.
-
-Open your GitHub repository, choose **Code → Codespaces**, and create a Codespace.
-
-In its terminal, check the tools with:
-
-```bash
-python --version
-git --version
+```text
+Enter first side: 3
+Enter second side: 4
+Hypotenuse: 5.0
 ```
+
+You now have a working Python program.
 
 ---
 
-## 2. Create your Python project
+# Part 3: Initialise a Git repository
 
-Create a folder called `pythagoras` for your practical work. Open that folder in VS Code.
+Git allows you to track changes to your code over time.
 
-Create a file named `pythagoras.py` and add this initial program:
+## 3.1 Initialise Git
 
-```python
-import math
-
-var1 = int(input("Enter first number: "))
-var2 = int(input("Enter second number: "))
-
-var3 = var1 * var1
-var4 = var2 * var2
-
-var5 = var3 + var4
-
-var6 = math.sqrt(var5)
-
-print(var6)
-```
-
-Save the file and run it in the terminal:
-
-```bash
-python pythagoras.py
-```
-
-If necessary, use `python3` instead of `python`.
-
----
-
-## 3. Create a local Git repository
-
-In the terminal, make sure you are inside your `pythagoras` project folder.
-
-Then enter:
+In the terminal, enter:
 
 ```bash
 git init
 ```
 
-This starts a Git repository in the current folder. Git creates a hidden `.git` directory where it stores repository information and history.
+This creates a new Git repository in your project folder.
 
-Check the repository status:
+## 3.2 Check the repository status
+
+Enter:
 
 ```bash
 git status
 ```
 
-This shows which files Git is tracking, which files are new, and which files have changes. Your `pythagoras.py` file should appear as untracked.
+Git should show that `pythagoras.py` is an untracked file.
 
-### Configure your Git identity (first-time setup)
+This means Git can see the file, but it is not yet tracking it.
 
-If Git asks you to identify yourself before making a commit, configure a name and email:
+## 3.3 Stage the file
 
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
-```
-
-Use your own name and an email address you want associated with your commits.
-
-These settings identify the author of commits. They do **not** sign you in to GitHub or give you permission to access a repository.
-
----
-
-## 4. Stage and commit your first version
-
-### Stage the file
+To tell Git which file you want to include in your next commit, enter:
 
 ```bash
 git add pythagoras.py
 ```
 
-This puts the file into the **staging area**.
-
-Staging means selecting the changes you want included in your next commit. It does not create a commit and does not upload anything to GitHub.
-
-You can stage all changed files in the current folder with:
-
-```bash
-git add .
-```
-
-Check what is staged:
+Check the status again:
 
 ```bash
 git status
 ```
 
-### Commit the staged changes
+The file should now appear as staged.
+
+## 3.4 Create your first commit
+
+A commit records a snapshot of your project at a particular point in time.
+
+Enter:
 
 ```bash
 git commit -m "Initial Pythagoras program"
 ```
 
-This saves a snapshot of the staged changes in your **local** Git repository.
+You have now created your first commit.
 
-The `-m` option means **message**. It lets you provide the commit message directly in the command.
+The message describes what was recorded.
 
-The message should briefly describe what the commit contains.
+## 3.5 View your commit history
 
-For example:
-
-```bash
-git commit -m "Improve code readability"
-```
-
-A commit is like a checkpoint in your project's history. You can inspect previous commits and compare versions later.
-
-**Important:** After `git commit`, the commit is saved locally. It is not automatically visible on GitHub. You will upload it later using `git push`.
-
-View the commit history:
+Enter:
 
 ```bash
 git log --oneline
 ```
 
-This shows a compact list of commits.
+You should see your first commit listed.
 
-### What if `git diff` takes over the terminal?
-
-The command:
-
-```bash
-git diff
-```
-
-shows changes that have not yet been staged.
-
-If the output is long, Git may display it in a pager (usually `less`). The terminal can look as though it is no longer accepting commands.
-
-**Press `q` on your keyboard to quit the pager** and return to your normal terminal prompt.
-
-Other useful pager controls:
-
-- `Space`: move down one page.
-- `b`: move up one page.
-- Arrow keys: move line by line.
-- `q`: quit.
-
-This can also happen with commands such as `git log`.
-
----
-
-## 5. Create the GitHub repository online
-
-**Yes! You should create the repository on GitHub before you connect your local repository and push to it.**
-
-Creating a local repository with `git init` does not automatically create a repository on GitHub.
-
-Follow these steps:
-
-1. Sign in to https://github.com/.
-2. Select **New repository** (usually available from the `+` menu or your repositories page).
-3. Enter a repository name, for example `pythagoras`.
-4. Choose **Private** or **Public**, depending on your needs.
-5. For this practical, because you already have a local project and have committed it, the simplest option is to create an **empty repository**. Do not add a README, licence or `.gitignore` during creation.
-6. Select **Create repository**.
-7. GitHub will show you the repository URL. Copy the HTTPS URL.
-
-It will look similar to:
+The output will look something like:
 
 ```text
-https://github.com/YOUR-USERNAME/pythagoras.git
+a1b2c3d Initial Pythagoras program
 ```
 
-Use the URL for the repository you have just created. Do not copy the example URL literally.
-
-### Why create it online first?
-
-Your local Git repository and the GitHub repository are two separate copies.
-
-Creating the GitHub repository gives your local repository an online destination to connect to.
-
-- `git remote add` records the online destination.
-- `git push` uploads your commits to GitHub.
+The letters and numbers are a shortened version of the commit's unique identifier.
 
 ---
 
-## 6. Connect your local repository to GitHub
+# Part 4: Make changes and create more commits
 
-In the terminal, still inside your local `pythagoras` project folder, enter this command.
+One of the main benefits of Git is that it allows you to record changes as your software develops.
 
-Replace the example URL with the HTTPS URL you copied from your own GitHub repository:
+## 4.1 Improve the code readability
 
-```bash
-git remote add origin https://github.com/YOUR-USERNAME/pythagoras.git
-```
-
-This adds a **remote**: a reference to another copy of the repository hosted elsewhere.
-
-What does each part mean?
-
-- `remote`: tells Git you are working with a remote repository.
-- `add`: adds a new remote connection.
-- `origin`: the conventional short name for this remote. It is just a nickname; it usually refers to your GitHub repository.
-- The URL: identifies the online repository.
-
-This command connects the repositories, but it does **not** upload your files.
-
-You can check the remote address with:
-
-```bash
-git remote -v
-```
-
-### If Git says `remote origin already exists`
-
-That means a remote named `origin` has already been configured.
-
-Check its address with:
-
-```bash
-git remote -v
-```
-
-If it is wrong, update it with your correct GitHub URL:
-
-```bash
-git remote set-url origin https://github.com/YOUR-USERNAME/pythagoras.git
-```
-
-You do not need to add `origin` again.
-
----
-
-## 7. Rename the branch and push to GitHub
-
-Enter the following commands **one at a time**, pressing Enter after each command. Wait for each command to finish before entering the next one.
-
-### Command 1: name the branch `main`
-
-```bash
-git branch -M main
-```
-
-This renames your current branch to `main`.
-
-What does each part mean?
-
-- `branch`: the Git command for working with branches.
-- `-M`: renames the branch to the specified name, forcing the rename if necessary.
-- `main`: the name you want to use for your primary branch.
-
-**Note:** The `M` is uppercase. It is different from lowercase `-m`, which is used for a commit message in `git commit`.
-
-A branch is a line of development. `main` is commonly used as the name of the primary branch.
-
-### Command 2: upload your commits
-
-```bash
-git push -u origin main
-```
-
-This uploads your local `main` branch and its commits to the GitHub repository.
-
-What does each part mean?
-
-- `push`: uploads local commits to a remote repository.
-- `-u`: sets the upstream tracking relationship. It tells Git that your local `main` branch should track `origin/main`, so future pushes and pulls can usually be run with just `git push` or `git pull`.
-- `origin`: the remote nickname you set earlier.
-- `main`: the branch you are uploading.
-
-You may be asked to authenticate with GitHub. Follow the sign-in prompt in your browser or the authentication method configured for your computer.
-
-**Now open your GitHub repository in a web browser and refresh the page.** You should see `pythagoras.py` and your commit history.
-
-### Do I enter all three GitHub commands at once?
-
-These are the three commands:
-
-```bash
-git remote add origin https://github.com/YOUR-USERNAME/pythagoras.git
-git branch -M main
-git push -u origin main
-```
-
-Enter them **line by line**, not as one combined command:
-
-1. First, add the remote.
-2. Next, rename the branch.
-3. Finally, push the branch to GitHub.
-
-Each command has a different job, and the later commands rely on the earlier setup being correct.
-
----
-
-## 8. Make another change and push it
-
-Now improve the readability of your program. Use meaningful variable names and add comments.
+Open `pythagoras.py` and improve the variable names and add comments.
 
 For example:
 
 ```python
 import math
 
-# Ask the user for the lengths of the two shorter sides
-side_a = float(input("Enter the first side: "))
-side_b = float(input("Enter the second side: "))
+# Ask the user to enter the lengths of the two shorter sides
+side_a = float(input("Enter first side: "))
+side_b = float(input("Enter second side: "))
 
-# Calculate the hypotenuse using the Pythagorean theorem
+# Calculate the hypotenuse
 hypotenuse = math.sqrt(side_a ** 2 + side_b ** 2)
 
 # Display the result
@@ -423,38 +284,54 @@ print("Hypotenuse:", hypotenuse)
 
 Save the file.
 
-Then enter these commands one at a time:
+## 4.2 See what has changed
+
+Enter:
 
 ```bash
 git status
-git diff
-git add pythagoras.py
-git commit -m "Improve code readability"
-git push
 ```
 
-What happens?
+Git should show that `pythagoras.py` has been modified.
 
-1. `git status` shows that the file has changed.
-2. `git diff` displays the differences between the working file and the last committed version. Press `q` to leave the pager if it opens.
-3. `git add` stages the updated file.
-4. `git commit` saves a new local snapshot with a descriptive message.
-5. `git push` uploads the new commit to GitHub.
+To see the actual changes, enter:
 
-Refresh the GitHub page. You should now see the updated file and the new commit in the history.
+```bash
+git diff
+```
 
----
+This displays the differences between your current file and the last committed version.
 
-## 9. Add input validation
+If the output opens in a pager, press `q` to exit.
 
-Improve the program so that it handles invalid input. For example, side lengths should be positive numbers.
+## 4.3 Commit the changes
+
+Stage the updated file:
+
+```bash
+git add pythagoras.py
+```
+
+Create a new commit:
+
+```bash
+git commit -m "Improve code readability"
+```
+
+You now have two commits in your history.
+
+## 4.4 Add input validation
+
+Now improve the program by checking that the user enters valid positive numbers.
+
+Replace the contents of `pythagoras.py` with:
 
 ```python
 import math
 
 try:
-    side_a = float(input("Enter the first side: "))
-    side_b = float(input("Enter the second side: "))
+    side_a = float(input("Enter first side: "))
+    side_b = float(input("Enter second side: "))
 
     if side_a <= 0 or side_b <= 0:
         raise ValueError("Side lengths must be positive")
@@ -467,193 +344,543 @@ except ValueError as error:
     print("Invalid input:", error)
 ```
 
-Save and test the program.
+Save the file and test it.
 
-Then stage, commit and push the change:
+Try entering:
+- Two valid positive numbers.
+- A negative number.
+- Text instead of a number.
+- Zero.
+
+The program should handle invalid input without producing an uncontrolled error.
+
+## 4.5 Commit the validation changes
+
+Stage the file:
 
 ```bash
 git add pythagoras.py
-git commit -m "Add input validation"
-git push
 ```
 
-Check GitHub to confirm that the latest version has been uploaded.
+Commit the changes:
+
+```bash
+git commit -m "Add input validation"
+```
+
+Check your history:
+
+```bash
+git log --oneline
+```
+
+You should now see three commits.
 
 ---
 
-## 10. Challenge: create a branch and merge a feature
+# Part 5: Upload your repository to GitHub
 
-Branches allow you to work on a new feature without making changes directly to the main line of development.
+Git manages your version history locally. GitHub allows you to store and share your Git repository online.
 
-Create a new branch:
+## 5.1 Create a GitHub account
+
+If you do not already have an account, register at:
+
+https://github.com/
+
+## 5.2 Create a new repository
+
+1. Log in to GitHub.
+2. Select the **New repository** option.
+3. Give your repository a name, for example:
+
+   `pythagoras`
+
+4. Choose whether the repository should be public or private.
+5. Select **Create repository**.
+
+For this practical, it is easiest to create an empty repository without adding a README, licence or `.gitignore` file.
+
+## 5.3 Connect your local repository to GitHub
+
+GitHub will display a repository URL.
+
+It will look something like:
+
+`https://github.com/USERNAME/pythagoras.git`
+
+In your terminal, enter the following command, replacing the URL with your own:
+
+```bash
+git remote add origin https://github.com/USERNAME/pythagoras.git
+```
+
+This connects your local Git repository to the online GitHub repository.
+
+To check the connection, enter:
+
+```bash
+git remote -v
+```
+
+## 5.4 Push your code to GitHub
+
+Enter:
+
+```bash
+git branch -M main
+git push -u origin main
+```
+
+Your commits and files should now appear in your GitHub repository.
+
+You may be asked to authenticate with GitHub.
+
+## 5.5 Understand the commands
+
+- `git branch -M main` renames the current branch to `main`, replacing an existing branch name if necessary.
+- `git push` uploads your commits to the remote repository.
+- `-u` sets up tracking between your local branch and the remote branch.
+- `origin` is the conventional name for your remote repository.
+- `main` is the name of the branch being pushed.
+
+**Important:** A commit records changes locally. A push uploads those commits to GitHub. They are not the same thing.
+
+---
+
+# Part 6: Working with branches
+
+Branches allow you to develop new features without immediately changing the main version of your software.
+
+Imagine that your Pythagoras calculator is working correctly. You now want to add another feature: calculating the area of the right-angled triangle.
+
+Instead of changing the main version directly, you can create a separate branch.
+
+## 6.1 What is a branch?
+
+A branch is an independent line of development within your Git repository.
+
+For example:
+
+- `main`: the main version of your software.
+- `add-triangle-area`: a branch where you develop the new area calculation feature.
+
+You can make and commit changes on the new branch without changing the contents of `main`.
+
+This is useful when you want to experiment, develop new functionality or fix bugs without immediately affecting the working version.
+
+## 6.2 Create a new branch
+
+In your terminal, enter:
 
 ```bash
 git switch -c add-triangle-area
 ```
 
-What does each part mean?
+This command creates a new branch and switches you to it.
 
-- `switch`: changes the branch you are working on.
-- `-c`: means create a new branch.
-- `add-triangle-area`: is the new branch name.
+You can also use:
 
-Now add code to calculate the area of the right-angled triangle:
+```bash
+git branch
+```
+
+to see your local branches.
+
+The output should look something like:
+
+```text
+* add-triangle-area
+  main
+```
+
+The asterisk (`*`) indicates the branch you are currently working on.
+
+## 6.3 Switch between branches
+
+To return to the main branch:
+
+```bash
+git switch main
+```
+
+To return to your feature branch:
+
+```bash
+git switch add-triangle-area
+```
+
+You can check which branch you are currently using with:
+
+```bash
+git status
+```
+
+**Important:** Switching branches changes which version of the tracked files you are working with. Make sure you commit or otherwise safely handle your changes before switching.
+
+## 6.4 Add the new feature
+
+While working on the `add-triangle-area` branch, open `pythagoras.py`.
+
+Add the following calculation:
 
 ```python
 area = (side_a * side_b) / 2
 print("Triangle area:", area)
 ```
 
-Save and test your changes.
+Your program should now calculate both the hypotenuse and the triangle's area.
 
-Then stage and commit them:
+Save the file and test the program.
+
+Stage and commit your changes:
 
 ```bash
 git add pythagoras.py
 git commit -m "Add triangle area calculation"
 ```
 
-Switch back to the main branch:
+You have now created a commit on the feature branch.
+
+## 6.5 Compare branches
+
+You can compare the contents of two branches using:
+
+```bash
+git diff main add-triangle-area
+```
+
+This shows the changes that exist on `add-triangle-area` compared with `main`.
+
+You can also view the commit history across all branches:
+
+```bash
+git log --oneline --graph --all
+```
+
+This displays a graphical text representation of the commit history, including branches and merges.
+
+## 6.6 Why create a branch and then merge it?
+
+The main purpose of a branch is to develop a new feature without changing the stable version of your software.
+
+For example:
+
+**Without branching:**
+
+You make changes directly to `main`. If your changes break the program, the main version is affected.
+
+**With branching:**
+
+1. `main` contains the working Pythagoras calculator.
+2. You create `add-triangle-area`.
+3. You develop the new area calculation separately.
+4. You test the new feature.
+5. Once you are happy with it, you merge it into `main`.
+6. The main version now includes the new feature.
+
+This allows you to experiment and test without immediately affecting the main version.
+
+## 6.7 Merge your branch into main
+
+Once you are happy with your new feature, you can merge it into the main branch.
+
+First, switch back to `main`:
 
 ```bash
 git switch main
 ```
 
-Merge the feature branch into `main`:
+Then merge the feature branch:
 
 ```bash
 git merge add-triangle-area
 ```
 
-This brings the changes from `add-triangle-area` into `main`.
+Git will bring the changes from `add-triangle-area` into `main`.
 
-Finally, push the updated main branch to GitHub:
+If there are no conflicts, Git may complete the merge automatically.
+
+Your main branch now contains the new triangle area calculation.
+
+Push the updated main branch to GitHub:
 
 ```bash
 git push
 ```
 
-You can check which branch you are on with:
+## 6.8 Push your feature branch to GitHub
+
+A branch created locally does not automatically appear on GitHub.
+
+To upload your feature branch, run:
+
+```bash
+git push -u origin add-triangle-area
+```
+
+You can now see the branch on GitHub.
+
+To find it:
+
+1. Open your repository on GitHub.
+2. Select the **Code** tab.
+3. Click the branch selector, which normally displays `main`.
+4. Select `add-triangle-area` from the list.
+
+You can also see the branches in the repository's **Branches** section.
+
+## 6.9 Why is branching useful?
+
+| Benefit | Explanation |
+|---|---|
+| Protect the working version | Experimental changes do not immediately affect `main`. |
+| Develop features independently | Different features can be developed separately. |
+| Test before integration | Check that new code works before merging it. |
+| Support collaboration | Different developers can work on separate branches. |
+| Review changes | Other developers can inspect changes before they are merged. |
+| Experiment safely | Try new ideas without changing the main version. |
+
+**A useful distinction:**
+
+- A branch is where you develop changes separately.
+- A commit records a particular change.
+- A merge brings changes from one branch into another.
+- A push uploads your local commits and branches to GitHub.
+
+You do not necessarily need to delete a feature branch after merging it. However, deleting completed feature branches is common practice because it keeps the repository tidy.
+
+---
+
+# Part 7: Troubleshooting
+
+## Error: `python: command not found`
+
+Your computer may not recognise the `python` command.
+
+Try:
+
+```bash
+python3 --version
+```
+
+If that works, run your program using:
+
+```bash
+python3 pythagoras.py
+```
+
+If neither command works, check that Python is installed and available in your system PATH.
+
+## Error: `git: command not found`
+
+Git may not be installed correctly, or it may not be available in your system PATH.
+
+Check the installation and try:
+
+```bash
+git --version
+```
+
+If the command still does not work, reinstall Git and restart your terminal.
+
+## Error: `remote origin already exists`
+
+You may see this error when running:
+
+```bash
+git remote add origin https://github.com/USERNAME/REPOSITORY.git
+```
+
+The terminal displays:
+
+```text
+error: remote origin already exists.
+```
+
+This means your local Git repository already has a remote repository called `origin` configured. You do not need to add it again.
+
+**Step 1: Check the existing remote**
+
+```bash
+git remote -v
+```
+
+This displays the URL currently associated with `origin`.
+
+**Step 2: Update the remote URL if necessary**
+
+If you want to connect to a different GitHub repository, use:
+
+```bash
+git remote set-url origin https://github.com/USERNAME/REPOSITORY.git
+```
+
+Replace the URL with your own GitHub repository URL.
+
+**Step 3: Check the remote again**
+
+```bash
+git remote -v
+```
+
+Make sure the URL is now correct.
+
+**Step 4: Push your code to GitHub**
+
+```bash
+git branch -M main
+git push -u origin main
+```
+
+Make sure the repository exists on GitHub and that you have permission to access it.
+
+**Remember:**
+
+- `git remote add origin` creates a remote connection for the first time.
+- `git remote set-url origin` changes an existing remote connection.
+- `git remote -v` lets you check which remote repository is configured.
+
+## Error: `Repository not found`
+
+If you see:
+
+```text
+remote: Repository not found.
+fatal: repository not found
+```
+
+Check the following:
+
+1. Does the repository exist on GitHub?
+2. Is the repository URL correct?
+3. Are you logged into the correct GitHub account?
+4. If the repository is private, do you have permission to access it?
+
+You can check the URL using:
+
+```bash
+git remote -v
+```
+
+If it is incorrect, update it:
+
+```bash
+git remote set-url origin https://github.com/USERNAME/REPOSITORY.git
+```
+
+## Error: `src refspec main does not match any`
+
+This can happen if you have not created a commit yet, or if your current branch has a different name.
+
+Check your status:
+
+```bash
+git status
+```
+
+If you have not committed your files, stage and commit them first:
+
+```bash
+git add pythagoras.py
+git commit -m "Initial Pythagoras program"
+```
+
+Then check your branch:
 
 ```bash
 git branch
 ```
 
-The current branch is marked with an asterisk (`*`).
+If necessary, rename the current branch:
+
+```bash
+git branch -M main
+```
+
+Then try pushing again.
+
+## Error: Authentication failed
+
+GitHub may require you to authenticate before pushing.
+
+Follow the authentication prompt or use GitHub's recommended authentication method.
+
+You can find more information here:
+
+https://docs.github.com/en/authentication
+
+## I cannot see my new branch on GitHub
+
+Creating a branch locally does not automatically upload it to GitHub.
+
+Check your local branches:
+
+```bash
+git branch
+```
+
+If your branch exists, upload it using:
+
+```bash
+git push -u origin add-triangle-area
+```
+
+Replace `add-triangle-area` with the name of your branch if you used a different name.
+
+Refresh your GitHub repository and open the branch selector.
 
 ---
 
-## 11. Common problems and how to fix them
-
-### `remote: Repository not found` / `fatal: repository ... not found`
-
-For example:
-
-```text
-remote: Repository not found.
-fatal: repository 'https://github.com/YOUR-USERNAME/pyth-test.git/' not found
-```
-
-This usually means GitHub cannot find the repository at the URL, or your account does not have permission to access it.
-
-Check the following:
-
-1. **Does the repository exist online?** Open GitHub in your browser and check that you have created the repository. Creating a local repository with `git init` does not create a GitHub repository.
-2. **Is the URL correct?** On the GitHub repository page, select **Code**, copy the HTTPS URL, and compare it with the remote URL configured in Git.
-3. **Does the repository name match exactly?** Check spelling, hyphens and your GitHub username. For example, `pyth-test` and `pythagoras` are different repository names.
-4. **Do you have permission?** If the repository is private, make sure you are signed in to the GitHub account that owns it or has been invited to collaborate.
-5. **Is `origin` pointing to the right place?** Check it with:
-
-```bash
-git remote -v
-```
-
-If the URL is incorrect, replace it with the correct URL copied from GitHub:
-
-```bash
-git remote set-url origin https://github.com/YOUR-USERNAME/REPOSITORY-NAME.git
-```
-
-Then try pushing again:
-
-```bash
-git push -u origin main
-```
-
-A trailing slash in a displayed error message is not usually the main issue. Check that the repository exists, the full URL is correct, and you have access.
-
-### `remote origin already exists`
-
-A remote called `origin` is already configured.
-
-Check it:
-
-```bash
-git remote -v
-```
-
-If necessary, update it using:
-
-```bash
-git remote set-url origin https://github.com/YOUR-USERNAME/REPOSITORY-NAME.git
-```
-
-### `git` or `python` is not recognised
-
-- Check that the software is installed.
-- Close and reopen the terminal after installation.
-- On some systems, use `python3` instead of `python`.
-- If you are using a university-managed computer, installation or PATH changes may require help from IT support.
-
-### GitHub asks you to sign in
-
-This is normal when pushing to GitHub for the first time.
-
-Complete the authentication prompt. Your Git commit name and email configuration does not itself authenticate you.
-
-### The terminal seems stuck after `git diff` or `git log`
-
-Press **`q`** to exit the pager and return to the command prompt.
-
----
-
-## 12. Useful Git commands
+# Part 8: Useful Git commands
 
 | Command | Purpose |
 |---|---|
-| `git init` | Create a local repository |
-| `git status` | Show the state of files and staging |
-| `git diff` | Show unstaged changes |
+| `git init` | Initialise a new repository |
+| `git status` | Check the current repository status |
 | `git add filename` | Stage a file |
-| `git add .` | Stage all changes in the current folder |
-| `git commit -m "message"` | Save staged changes as a commit |
-| `git log --oneline` | Show a compact commit history |
-| `git remote -v` | Show configured remote addresses |
+| `git add .` | Stage all changes in the current directory |
+| `git commit -m "message"` | Create a commit |
+| `git log --oneline` | View commit history |
+| `git diff` | View uncommitted changes |
+| `git remote -v` | View remote repositories |
 | `git push` | Upload commits to GitHub |
-| `git pull` | Fetch and integrate remote changes |
+| `git pull` | Download and integrate remote changes |
 | `git branch` | List local branches |
+| `git switch branch-name` | Switch branches |
 | `git switch -c branch-name` | Create and switch to a branch |
-| `git switch main` | Switch to the main branch |
 | `git merge branch-name` | Merge another branch into the current branch |
+| `git diff main branch-name` | Compare two branches |
 
 ---
 
-## 13. Reflection: how does Git support sustainable software?
+# Part 9: Reflection — Version control and sustainable software
 
-Discuss these questions:
+Think about the practical and answer the following questions.
 
-1. How does a commit history help someone understand how software has changed?
-2. Why is it useful to have clear commit messages?
-3. How can branches make it safer to experiment with new features?
-4. How does hosting code on GitHub make collaboration easier?
-5. How could version control help someone maintain or reproduce research software several years after it was written?
+1. Why is it useful to keep a history of changes to your code?
+2. How is Git different from GitHub?
+3. What is the difference between a commit and a push?
+4. Why might you create a branch instead of making changes directly to `main`?
+5. How does testing a feature on a separate branch reduce the risk of breaking existing software?
+6. Imagine that another researcher wants to understand how your Pythagoras program developed. How could the commit history help them?
+7. How could version control help a research team collaborate on a shared software project?
 
-**Remember the basic workflow:**
+## Connection to software sustainability
 
-```text
-Edit → Stage (add) → Commit → Push
-```
+Version control supports sustainable research software because it helps developers:
 
-- **Stage** selects the changes for the next snapshot.
-- **Commit** saves that snapshot in your local Git history.
-- **Push** uploads your commits to GitHub.
+- Understand how software has changed over time.
+- Identify and investigate problems.
+- Experiment with new features safely.
+- Collaborate with other researchers and developers.
+- Maintain and extend existing software.
+- Preserve a transparent record of software development.
+
+For example, imagine a research team has a simulation that produces published results. A researcher wants to add a new calculation method.
+
+They can develop the new method on a separate branch, test it, compare its results with the existing method, and merge it when it is ready.
+
+This reduces the risk of accidentally breaking software that other researchers depend on.
+
+**The key message:** Version control is not just about saving different versions of files. It is about managing software development in a controlled, transparent and collaborative way.
