@@ -83,7 +83,7 @@ If your system uses `python3` instead of `python`, run:
 ```bash
 python3 -m unittest -v
 ```
-Make sure your test file starts with test_ as Python's 'unittest' discovery looks for files matching test*.py by default.
+Make sure your test file starts with test_ as Python's `unittest` discovery looks for files matching test*.py by default.
 
 ## 3. Task 2 – Make a test fail
 
