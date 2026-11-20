@@ -1,8 +1,6 @@
-# Instructor Solutions: Unit Testing a Pythagoras Calculator
+# Solutions: Unit Testing a Pythagoras Calculator
 
-**For instructor use — reveal after students have attempted the practical.**
-
-This document contains example solutions, expected behaviour, and teaching notes. Students may produce different but equally valid tests.
+This document contains example solutions, expected behaviour, and teaching notes. You may produce different but equally valid tests. 
 
 ## 1. Starting implementation
 
@@ -48,7 +46,7 @@ python -m unittest -v
 
 Expected result: three tests pass. The exact run time and formatting may vary.
 
-### Teaching notes
+### Notes
 
 - `unittest.TestCase` provides assertion methods and test-running support.
 - Test method names begin with `test_` so `unittest` can discover them.
@@ -68,7 +66,7 @@ The function returns `5.0`, not `6`, so the test fails.
 
 The test output will indicate a failure and show the difference between the actual and expected values. The exact formatting can vary by Python version.
 
-**Teaching point:** a failing test does not automatically mean the program is wrong. The test may contain an incorrect expected value. In this example, the expected value should be `5`.
+**Important point:** a failing test does not automatically mean the program is wrong. The test may contain an incorrect expected value. In this example, the expected value should be `5`.
 
 A useful distinction:
 
@@ -124,7 +122,7 @@ if __name__ == "__main__":
 
 Expected result: all five tests pass.
 
-### Explain `assertRaises`
+### What is `assertRaises`
 
 This code:
 
@@ -234,8 +232,6 @@ from pythagoras import calculate_hypotenuse, calculate_area
 
 ## 7. Discussion: testing and sustainable research software
 
-Suggested discussion points:
-
 | Testing benefit | Sustainability connection |
 |---|---|
 | Detects errors | Improves reliability |
@@ -250,16 +246,5 @@ Passing unit tests does not prove that software is completely correct. Tests onl
 
 Good testing therefore involves choosing meaningful cases, including typical inputs, boundary cases, and invalid inputs. For research software, tests of individual functions may also need to be complemented by integration tests and checks against known scientific results.
 
-## 8. Suggested teaching sequence
 
-| Activity | Suggested time |
-|---|---:|
-| Introduce unit testing and starting code | 5 minutes |
-| Students write basic tests | 10 minutes |
-| Demonstrate a deliberately failing test | 5 minutes |
-| Add input validation and exception tests | 10 minutes |
-| Discuss sustainability and extension | 5–10 minutes |
-
-**Teaching suggestion:** Let students attempt each task before revealing its solution. In particular, show the failing test output before explaining why it failed. This helps distinguish a test failure from a program error.
-'''
 
