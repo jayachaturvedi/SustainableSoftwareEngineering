@@ -1,7 +1,3 @@
-**Estimated time:** 30–40 minutes  
-**Level:** Beginner-friendly  
-**Files:** `pythagoras.py` and `test_pythagoras.py`
-
 ## Learning objectives
 
 By the end of this practical, you should be able to:
@@ -28,8 +24,9 @@ import math
 def calculate_hypotenuse(side_a, side_b):
     return math.sqrt(side_a**2 + side_b**2)
 ```
+Or feel free to use the code you previously created.
 
-The function calculates the hypotenuse of a right-angled triangle from the lengths of its two shorter sides.
+The function here calculates the hypotenuse of a right-angled triangle from the lengths of its two shorter sides.
 
 ## 2. Task 1 – Write tests for the function
 
