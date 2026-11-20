@@ -144,12 +144,17 @@ Add the following code:
 ```python
 import math
 
-side_a = float(input("Enter first side: "))
-side_b = float(input("Enter second side: "))
+var1 = int(input("Enter first number: "))
+var2 = int(input("Enter second number: "))
 
-hypotenuse = math.sqrt(side_a ** 2 + side_b ** 2)
+var3 = var1 * var1
+var4 = var2 * var2
 
-print("Hypotenuse:", hypotenuse)
+var5 = var3 + var4
+
+var6 = math.sqrt(var5)
+
+print(var6)
 ```
 
 Save the file.
@@ -272,14 +277,22 @@ For example:
 import math
 
 # Ask the user to enter the lengths of the two shorter sides
-side_a = float(input("Enter first side: "))
-side_b = float(input("Enter second side: "))
+side_a = int(input("Enter the length of the first side: "))
+side_b = int(input("Enter the length of the second side: "))
 
-# Calculate the hypotenuse
-hypotenuse = math.sqrt(side_a ** 2 + side_b ** 2)
+# Calculate the square of each side
+side_a_squared = side_a ** 2
+side_b_squared = side_b ** 2
+
+# Add the squared values together
+sum_of_squares = side_a_squared + side_b_squared
+
+# Calculate the square root to find the hypotenuse
+hypotenuse = math.sqrt(sum_of_squares)
 
 # Display the result
-print("Hypotenuse:", hypotenuse)
+print("The length of the hypotenuse is:", hypotenuse)
+
 ```
 
 Save the file.
@@ -330,8 +343,8 @@ Replace the contents of `pythagoras.py` with:
 import math
 
 try:
-    side_a = float(input("Enter first side: "))
-    side_b = float(input("Enter second side: "))
+    side_a = int(input("Enter first side: "))
+    side_b = int(input("Enter second side: "))
 
     if side_a <= 0 or side_b <= 0:
         raise ValueError("Side lengths must be positive")
